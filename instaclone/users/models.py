@@ -21,10 +21,16 @@ from django.db import models
 
 # profile=UserProfile.objects.get(user__email='varun@gmail.com')
 
+# .update() - update
+# .delete() - delete
+# .get() - get one record
+# .save() - save
+
 class User(models.Model):
     name = models.CharField(max_length=255,null=False)
     email = models.EmailField(max_length=255,unique=True,null=False)
     phone_number= models.CharField(max_length=10,unique=True)
+    password = models.CharField(max_length=255,null=False)
     is_active = models.BooleanField(default=False)
 
     created_on= models.DateTimeField(auto_now_add=True)

@@ -1,14 +1,23 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+from .models import User
 
-# Create your views here.
-# index(request) request => HttpRequest
+
 def index(request):
-    message= f'{request.GET["my_favorite_color"]}'
+    # len(User.objects.all()) dont use this bad practice
+    count_of_users = User.objects.count()
+    users= User.objects.all()
 
-    my_favorite_color = request.GET.get('my_favorite_color')
-    if my_favorite_color:
-        message = f'Your favorite color is {my_favorite_color}'
-    else:
-        message = 'You did not tell me your favorite color.'
+    for user in users:
+        print(user.name)
 
-    return HttpResponse(message)
+    context = {
+        'count_of_users': count_of_users,
+        'users':users
+    }
+    return render(request, 'users/index.html', context=context)
+
+
+def signup(request):
+    
+    return render(request, 'users/signup.html')
